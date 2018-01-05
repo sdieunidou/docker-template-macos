@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+
+    nginx:
+        ports:
+            - "80:80"
+
+    maildev:
+        image: djfarrelly/maildev
+        ports:
+            - "1080:80"
+
+    mysql:
+        ports:
+            - "3306:3306"
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin:4.6
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+            PMA_ARBITRARY: 1
+        links:
+            - mysql:db
+        ports:
+            - "8080:80"
